@@ -37,16 +37,16 @@ public class CustomersController {
     }
 
     @GetMapping(value="/postaldetails/{username}")
-    public ResponseEntity<PostalDetailsUserDTO> getPostalDetailsByUsername(@PathVariable String username){
+    public PostalDetailsUserDTO getPostalDetailsByUsername(@PathVariable String username){
         Customers customer = customersService.findCustomerByUsername(username);
         if (customer == null) {
-            return ResponseEntity.notFound().build();
+            return null;
         }
       PostalDetailsUserDTO postalDetailsUserDTO=new PostalDetailsUserDTO();
         postalDetailsUserDTO.setAddress(customer.getAddress());
         postalDetailsUserDTO.setCity(customer.getCity());
         postalDetailsUserDTO.setPhone(customer.getPhone());
 
-        return ResponseEntity.ok(postalDetailsUserDTO);
+        return postalDetailsUserDTO;
     }
 }
