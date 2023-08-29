@@ -1,18 +1,18 @@
 package com.example.demoJPA.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class OrderDetails {
     @Id
     @GeneratedValue
-    Integer id;
+    private Integer id;
 
-    String product_code;
-
-    Integer quantity;
-
-    Double priceEach;
+    @ManyToOne
+    private Customers customer;
+    @ManyToOne
+    private Products product;
+    private String product_code;
+    private int quantity;
+    private Double priceEach;
 }

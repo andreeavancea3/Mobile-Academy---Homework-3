@@ -6,14 +6,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
+import java.util.List;
+
+@RestController
 public class CustomersController {
     @Autowired
     CustomersService customersService;
 
+    @GetMapping(value="/customers")
+    public List<Customers> getAllTasks(){
+        return customersService.getAllCustomers();
+    }
     @PostMapping(value = "/insertCustomer")
-    public void InsertCustomer(){
+    public void insertCustomer(){
         Customers c = new Customers();
         c.setUsername("MihailB14");
         c.setFirst_name("Mihail");
@@ -23,6 +30,6 @@ public class CustomersController {
         c.setCity("Bucuresti");
         c.setPostalCode("123456");
         c.setCountry("Romania");
-        customersService.CreateCustomer(c);
+        customersService.createCustomer(c);
     }
 }
