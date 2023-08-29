@@ -1,5 +1,6 @@
 package com.example.demoJPA.service;
 
+import com.example.demoJPA.dto.PostalDetailsUserDTO;
 import com.example.demoJPA.model.Customers;
 import com.example.demoJPA.repository.CustomersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,8 @@ public class CustomersService {
     }
     public void createCustomer(Customers c){
         customersRepository.save(c);
-
+    }
+    public Customers findCustomerByUsername(String username){
+        return customersRepository.findByUsername(username);
     }
 }

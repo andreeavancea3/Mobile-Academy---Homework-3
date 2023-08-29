@@ -17,14 +17,14 @@ import javax.persistence.Id;
 public class Customers {
     @Id
     @GeneratedValue
-    Integer id;
-    String username;
-    String last_name;
-    String first_name;
-    String phone;
-    String address;
-    String city;
-    String postalCode;
-    String country;
+    private Integer id;
+    private String username;
+    private String last_name;
+    private  String first_name;
+    private String phone;
+    private  String address;
+    private String city;
+    private String postalCode;
+    private String country;
 }
 

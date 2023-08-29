@@ -18,7 +18,6 @@ import java.util.List;
 public class OrderDetailsController {
     @Autowired
     OrderDetailsService orderDetailsService;
-
     @Autowired
     CustomersRepository customersRepository;
     @Autowired
@@ -32,11 +31,9 @@ public class OrderDetailsController {
             @RequestBody List<String> productCodes
     ) {
         Customers customer = customersRepository.findById(customerId).orElse(null);
-
         if (customer == null) {
             return ResponseEntity.badRequest().body("Invalid customer");
         }
-
         List<Products> productsList = new ArrayList<>();
         for (String productCode : productCodes) {
             Products product = productsRepository.findByCode(Long.parseLong(productCode));
@@ -44,11 +41,9 @@ public class OrderDetailsController {
                 productsList.add(product);
             }
         }
-
         if (productsList.isEmpty()) {
             return ResponseEntity.badRequest().body("Invalid products");
         }
-
         orderDetailsService.addProductsToOrder(customer, productsList);
 
         return ResponseEntity.ok("Products added to order successfully");
@@ -57,11 +52,9 @@ public class OrderDetailsController {
     @GetMapping("/orderDetails/{customerId}")
     public ResponseEntity<List<OrderDetails>> getOrderDetailsForCustomer(@PathVariable Integer customerId) {
         Customers customer = customersRepository.findById(customerId).orElse(null);
-
         if (customer == null) {
             return ResponseEntity.badRequest().body(null);
         }
-
         List<OrderDetails> orderDetailsList = orderDetailsRepository.findByCustomer(customer);
 
         return ResponseEntity.ok(orderDetailsList);

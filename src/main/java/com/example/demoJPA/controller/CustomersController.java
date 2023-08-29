@@ -1,10 +1,14 @@
 package com.example.demoJPA.controller;
 
+import com.example.demoJPA.dto.PostalDetailsUserDTO;
 import com.example.demoJPA.model.Customers;
+import com.example.demoJPA.model.OrderDetails;
 import com.example.demoJPA.service.CustomersService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -14,7 +18,6 @@ import java.util.List;
 public class CustomersController {
     @Autowired
     CustomersService customersService;
-
     @GetMapping(value="/customers")
     public List<Customers> getAllTasks(){
         return customersService.getAllCustomers();
@@ -31,5 +34,19 @@ public class CustomersController {
         c.setPostalCode("123456");
         c.setCountry("Romania");
         customersService.createCustomer(c);
+    }
+
+    @GetMapping(value="/postaldetails/{username}")
+    public ResponseEntity<PostalDetailsUserDTO> getPostalDetailsByUsername(@PathVariable String username){
+        Customers customer = customersService.findCustomerByUsername(username);
+        if (customer == null) {
+            return ResponseEntity.notFound().build();
+        }
+      PostalDetailsUserDTO postalDetailsUserDTO=new PostalDetailsUserDTO();
+        postalDetailsUserDTO.setAddress(customer.getAddress());
+        postalDetailsUserDTO.setCity(customer.getCity());
+        postalDetailsUserDTO.setPhone(customer.getPhone());
+
+        return ResponseEntity.ok(postalDetailsUserDTO);
     }
 }

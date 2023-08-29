@@ -15,7 +15,6 @@ import java.util.List;
 public class ProductsController {
     @Autowired
     ProductsService productsService;
-
     @GetMapping(value="/products")
     public List<Products> getAllProducts(){
         return productsService.getAllProducts();
