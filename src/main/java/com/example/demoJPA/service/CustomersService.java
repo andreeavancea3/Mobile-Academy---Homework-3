@@ -19,7 +19,8 @@ public class CustomersService {
     public void createCustomer(Customers c){
         customersRepository.save(c);
     }
-    public Customers findCustomerByUsername(String username){
+
+    public Customers findCustomerByUsername(String username) {
         return customersRepository.findByUsername(username);
     }
 }

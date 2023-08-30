@@ -22,6 +22,8 @@ public class CustomersController {
     public List<Customers> getAllTasks(){
         return customersService.getAllCustomers();
     }
+
+    // create a new customer
     @PostMapping(value = "/insertCustomer")
     public void insertCustomer(){
         Customers c = new Customers();
@@ -36,6 +38,9 @@ public class CustomersController {
         customersService.createCustomer(c);
     }
 
+    // create a DTO to return only the address, phone and city of the customer,
+    // called PostalDetailsUserDTO. Create an endpoint which will return the postal
+    // details of an user, given his username as input
     @GetMapping(value="/postaldetails/{username}")
     public PostalDetailsUserDTO getPostalDetailsByUsername(@PathVariable String username){
         Customers customer = customersService.findCustomerByUsername(username);

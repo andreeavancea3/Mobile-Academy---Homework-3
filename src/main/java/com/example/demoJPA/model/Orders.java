@@ -1,13 +1,19 @@
 package com.example.demoJPA.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+import javax.persistence.*;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
+@NoArgsConstructor
+@Getter
+@Setter
 public class Orders {
     @Id
     @GeneratedValue
@@ -16,6 +22,11 @@ public class Orders {
     Date shipped_date;
     String status;
     String comments;
-    Integer customer_id;
+    @ManyToOne
+    @JoinColumn(name = "customer_id", referencedColumnName = "id")
+    private Customers customer;
+
+    @OneToMany
+    private List<Products> products = new ArrayList<>();
 
 }

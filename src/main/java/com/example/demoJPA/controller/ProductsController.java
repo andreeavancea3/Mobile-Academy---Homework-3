@@ -15,10 +15,14 @@ import java.util.List;
 public class ProductsController {
     @Autowired
     ProductsService productsService;
+
+    // create an endpoint which displays all products
     @GetMapping(value="/products")
     public List<Products> getAllProducts(){
         return productsService.getAllProducts();
     }
+
+    // create 10 products in the database
     @PostMapping(value = "/insertProducts")
     public void insertCustomer(){
         List<Products> productsList=new ArrayList<>();
